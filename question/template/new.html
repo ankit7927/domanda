@@ -7,17 +7,46 @@
 
 
 {% block content %}
-<form action="{% if question %} /question/edit/{{question.id}}?success={{success}} {% else %} /question/new {% endif %}" method="post">
-    {% csrf_token %}
-        <input type="text" name="title" placeholder="title" value="{{question.title}}"/><br />
-        <textarea name="content" placeholder="content">{{question.content}}</textarea><br />
-        <input type="text" name="tags" placeholder="tags" value="{{question.tags.all}}"/><br />
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="pr-0 pr-lg-4">
+                    <div class="content">
+                        <p>congratulation you are incresing question on domanda.</p>
+                        <div class="mt-5">
+                            <p class="h3 mb-3 font-weight-normal"><a class="text-dark"
+                                    href="mailto:hello@reporter.com">hello@reporter.com</a>
+                            </p>
+                            <p class="mb-3"><a class="text-dark" href="tel:&#43;211234565523">&#43;211234565523</a>
+                            </p>
+                            <p class="mb-2">9567 Turner Trace Apt. BC C3G8A4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <div class="py-4">
+                    <form method="POST"
+                        action="{% if question %} /question/edit/{{question.id}}?success={{success}} {% else %} /question/new {% endif %}"
+                        class="row">{% csrf_token %}
+                        <input type="text" class="form-control mb-4" placeholder="Title" name="title"
+                            value="{{question.title}}">
+                        <textarea name="content" id="message" class="form-control mb-4"
+                            placeholder="Type You Question Here" rows="5">{{question.content}}</textarea>
+                        <input type="text" name="tags" placeholder="tags" value="{{question.tags.all}}"
+                            class="form-control mb-4">
 
-        {% if question %}
-        <input type="submit" value="update" />
-        <a href="">delete</a>
-        {% else %}
-        <input type="submit" value="submit" />
-        {% endif %}
-</form>
+                        {% if question %}
+                        <button class="btn btn-outline-primary" type="submit">Update Question</button>
+                        <a href="">delete</a>
+                        {% else %}
+                        <button class="btn btn-outline-primary" type="submit">Submit Question</button>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

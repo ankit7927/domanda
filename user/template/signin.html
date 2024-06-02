@@ -1,19 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOMANDA - Signin</title>
-</head>
+{% block meta %}
+<title>PYQS - Profile</title>
+<meta name="description" content="">
+{% endblock %}
 
-<body>
-    <form action="/user/signin" method="post">
-        {% csrf_token %}
-        <input type="text" name="username" placeholder="username"/><br />
-        <input type="password" name="password" placeholder="password"/><br />
-        <input type="submit" value="submit" />
-    </form>
-</body>
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="pr-0 pr-lg-4">
+                    <div class="content">
+                        <p>welcome to Domanda, a platform for ask questions and get answers. please be helpfull to
+                            others and make this community grow helthy.</p>
+                        <div class="mt-5">
+                            <p class="h3 mb-3 font-weight-normal"><a class="text-dark"
+                                    href="mailto:hello@reporter.com">hello@reporter.com</a>
+                            </p>
+                            <p class="mb-3"><a class="text-dark" href="tel:&#43;211234565523">&#43;211234565523</a>
+                            </p>
+                            <p class="mb-2">9567 Turner Trace Apt. BC C3G8A4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-4 mt-lg-0">
+                <form method="POST" action="/user/signin" class="row">{% csrf_token %}
+                    <div class="col-12">
+                        <input type="text" class="form-control mb-4" placeholder="Username" name="username"
+                            id="username">
+                    </div>
+                    <div class="col-12">
+                        <input type="password" class="form-control mb-4" placeholder="Password" name="password"
+                            id="password">
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-outline-primary" type="submit">Sign in</button>
+                    </div>
+                </form>
+                <hr>
+                <a class="btn btn-outline-primary btn-sm" href="/user/signup">or signup here</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-</html>
+
+{% endblock %}

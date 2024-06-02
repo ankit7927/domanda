@@ -7,29 +7,117 @@
 
 
 {% block content %}
-<h2>{{question.title}}</h2>
-<p>{{question.content}}</p>
-<p>tags: {% for tag in question.tags.all %} {{tag}} {% endfor %}</p>
 
-{% if user == question.creator%}
-<div>actions: <a href="/question/edit/{{question.id}}?success=/question/get/{{question.slug}}">edit</a> <a href="/question/delete/{{question.id}}">delete</a></div>
-{% endif %}
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <article>
+                    <ul class="post-meta mb-2 mt-4 d-flex justify-content-between">
+                        <li>
+                            <span>{{question.created}}</span>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-sm"
+                                href="/question/likedis/{{question.id}}?success=/question/get/{{question.slug}}">
+                                {{question.likes}} Likes</a>
+                            {% if user == question.creator%}
+                            <a class="btn btn-primary btn-sm"
+                                href="/question/edit/{{question.id}}?success=/question/get/{{question.slug}}">
+                                Edit </a>
 
-<p>Likes {{question.likes}} <a href="/question/likedis/{{question.id}}?success=/question/get/{{question.slug}}">like</a> <a href="/question/likedis/{{question.id}}?success=/question/get/{{question.slug}}">dislike</a> </p>
-<hr>
+                            <a class="btn btn-primary btn-sm" href="/question/delete/{{question.id}}">
+                                Delete </a>
+                            {% endif %}
+                        </li>
+                    </ul>
 
-{% for ans in answers %}
-<p># {{ans}} - {{ans.creator.username}} <a href="/question/answer/{{ans.id}}/delete?success=/question/get/{{question.slug}}">delete</a><br></p>
-{% endfor %}
+                    <h1 class="">{{question.title}}</h1>
 
+                    <ul class="post-meta mb-4">
+                        {% for tag in question.tags.all %}
+                        <li><a href="btn btn-sm">{{tag}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    
+                    <div class="content text-left">
+                        <p>{{question.content}}</p>
+                    </div>
 
-<br><hr>
-<form action="/question/answer/{{question.id}}?success=/question/get/{{question.slug}}" method="post">
-    {% csrf_token %}
-    <p>create answer</p>
-    <textarea name="answer" id=""></textarea><br>
-    <input type="submit" value="submit">
-</form>
+                    <h3 class="pt-3 pb-2">Answers</h3>
+                    {% for answ in answers%}
+                    <div>
+                        <p class="fw-bold">{{answ.content}}</p>
+                        <ul class="post-meta d-flex justify-content-between">
+                            <li>
+                                by <b>{{answ.creator}}</b> on <span>{{answ.created}}</span>
+                            </li>
+                            {% if user == answ.creator%}
+                            <li>
+                                <a class="btn btn-primary btn-sm"
+                                    href="/question/answer/{{answ.id}}/delete?success=/question/get/{{question.slug}}">
+                                    Delete </a>
+                            </li>
+                            {% endif %}
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    <div class="py-3">
+                        <h3>create answer</h3>
+                        <form action="/question/answer/{{question.id}}?success=/question/get/{{question.slug}}"
+                            method="post">
+                            {% csrf_token %}
+                            <textarea name="answer" id="answer" class="form-control mb-4"
+                                placeholder="Type You Answer Here" rows="5"></textarea>
+                            <p class="text-muted">you must be logged in to answer*</p>
+                            <button class="btn btn-outline-primary" type="submit">Submit</button>
+                        </form>
 
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-4">
+                <div class="widget-blocks">
+                    <div class="row">
+                        {% if similer %}
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Recommended</h2>
+                                <div class="widget-body">
+                                    <div class="widget-list">
+                                        {% for question in similer %}
+                                        <a class="media align-items-center" href="/question/get/{{question.slug}}">
+                        
+                                            <div class="media-body">
+                                                <h3 style="margin-top:-5px">{{question.title}}</h3>
+                                                <p class="mb-0 small">{{question.content}}</p>
+                                            </div>
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
 
+                        {% if tags %}
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Categories</h2>
+                                <div class="widget-body">
+                                    <ul class="widget-list">
+                                        {% for tag in tags %}
+                                        <li><a href="#!">{{tag}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

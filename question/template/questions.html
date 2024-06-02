@@ -7,9 +7,17 @@
 
 
 {% block content %}
-<h2>Questions</h2>
-<hr>
-{% for question in questions %}
-<p><a href="/question/get/{{question.slug}}">{{question.title}}</a></p>
-{% endfor %}
+
+<section class="section">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-3 g-2">
+            {% for question in questions %}
+            <div class="col">
+                <a class="post-title p-1" href="/question/get/{{question.slug}}" class="card-text">{{forloop.counter}}. {{question.title}}</a>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+
+
 {% endblock %}

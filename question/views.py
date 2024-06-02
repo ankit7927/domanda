@@ -29,7 +29,9 @@ def get_questions(request, slug=None):
     if slug is not None:
         question = QuestionModel.objects.get(slug=slug)
         answers = AnswerModel.objects.filter(question=question)
-        return render(request=request, template_name="question.html", context={"question":question, "answers":answers})
+        simil = QuestionModel.objects.filter(tags__in=question.tags.all()).exclude(id=question.id).distinct()
+
+        return render(request=request, template_name="question.html", context={"question":question, "answers":answers, "similer":simil})
     
     else:
         questions = QuestionModel.objects.values("title", "created", "slug").all()[:15]

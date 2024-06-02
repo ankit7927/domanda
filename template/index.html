@@ -7,5 +7,118 @@
 
 
 {% block content %}
-<h1>Hello world</h1>
+<section class="section">
+    <div class="container">
+        <div class="row no-gutters-lg">
+            <div class="col-12">
+                <h2 class="section-title">Latest Articles</h2>
+            </div>
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <article class="card article-card">
+                            <div class="card-body px-0 pb-1">
+                                <h2 class="h1"><a class="post-title" href="/question/get/{{latest.slug}}">{{latest.title}}</a></h2>
+                                <p class="card-text">{{latest.content }}</p>
+                                <div class="content"> <a class="read-more-btn" href="/question/get/{{latest.slug}}">View Full
+                                        Question</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                    {% for question in questions %}
+                    <div class="col-md-6 mb-4">
+                        <article class="card article-card article-card-sm h-100">
+                            <div class="card-body px-0 pb-0">
+                                <h2><a class="post-title" href="/question/get/{{question.slug}}">{{question.title}}</a></h2>
+                                <p class="card-text">{{question.content}}</p>
+                                <div class="content"> <a class="read-more-btn" href="/question/get/{{question.slug}}">Read Full
+                                        Question</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <nav class="mt-4">
+                                    <!-- pagination -->
+                                    <nav class="mb-md-50">
+                                        <ul class="pagination justify-content-center">
+                                            <li class="page-item">
+                                                <a class="page-link" href="#!" aria-label="Pagination Arrow">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                                                        fill="currentColor" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z" />
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                            <li class="page-item active "> <a href="index.html" class="page-link">
+                                                    1
+                                                </a>
+                                            </li>
+                                            <li class="page-item"> <a href="#!" class="page-link">
+                                                    2
+                                                </a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#!" aria-label="Pagination Arrow">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26"
+                                                        fill="currentColor" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z" />
+                                                    </svg>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="widget-blocks">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Recommended</h2>
+                                <div class="widget-body">
+                                    <div class="widget-list">
+                                        {% for question in questions %}
+                                        <a class="media align-items-center" href="/question/get/{{question.slug}}">
+                                            <div class="media-body">
+                                                <h3 style="margin-top:-5px">{{question.title}}</h3>
+                                                <p class="mb-0 small">{{question.content}}</p>
+                                            </div>
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-6">
+                            <div class="widget">
+                                <h2 class="section-title mb-3">Categories</h2>
+                                <div class="widget-body">
+                                    <ul class="widget-list">
+                                        {% for tag in tags %}
+                                        <li><a href="#!">{{tag}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
 {% endblock %}
