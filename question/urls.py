@@ -10,4 +10,6 @@ urlpatterns = [
     path("get/<slug:slug>", view=views.get_questions, name="get"),
     path("answer/<int:questionId>", view=views.new_answer, name="nw ans"),
     path("answer/<int:answerId>/delete", view=views.delete_answer, name="del ans"),
+
+    path("likedis/<int:questionId>", view=views.like_dislike_question, name="like dis"),
 ]

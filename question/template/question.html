@@ -15,6 +15,7 @@
 <div>actions: <a href="/question/edit/{{question.id}}?success=/question/get/{{question.slug}}">edit</a> <a href="/question/delete/{{question.id}}">delete</a></div>
 {% endif %}
 
+<p>Likes {{question.likes}} <a href="/question/likedis/{{question.id}}?success=/question/get/{{question.slug}}">like</a> <a href="/question/likedis/{{question.id}}?success=/question/get/{{question.slug}}">dislike</a> </p>
 <hr>
 
 {% for ans in answers %}

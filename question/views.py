@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import QuestionModel, AnswerModel, TagModel
+from user.models import ProfileModel
 # Create your views here.
 
 def new_question(request):
@@ -73,3 +74,20 @@ def delete_answer(request, answerId):
         return redirect(to=request.GET.get("success"))
     else: return redirect("/user/signin")
 
+def like_dislike_question(request, questionId):
+    user = request.user
+    if user.is_authenticated: 
+        question = QuestionModel.objects.get(id=questionId)
+        user_profile = ProfileModel.objects.get(account=user)
+
+        if user_profile.liked_questions.filter(id=questionId).exists():
+            user_profile.liked_questions.filter(id=questionId).delete()
+            question.likes -= 1
+
+        else:
+            user_profile.liked_questions.add(question)
+            question.likes +=1
+        question.save()
+
+        return redirect(to=request.GET.get("success"))
+    else: return redirect("/user/signin")

@@ -9,7 +9,15 @@
 {% block content %}
 <h1>{{profile.name}} - {{account.username}}</h1>
 <hr>
+<h5>Question asked</h5>
 {% for quest in questions %}
 <p><a href="/question/get/{{quest.slug}}">{{quest.title}}</a></p>
 {% endfor %}
+
+<hr>
+<h5>Liked questions</h5>
+{% for quest in profile.liked_questions.all %}
+<p><a href="/question/get/{{quest.slug}}">{{quest.title}}</a></p>
+{% endfor %}
+
 {% endblock %}
