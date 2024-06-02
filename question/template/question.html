@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>PYQS - Question </title>
+<meta name="description" content="">
+{% endblock %}
+
+
+{% block content %}
+<h2>{{question.title}}</h2>
+<p>{{question.content}}</p>
+<p>tags: {% for tag in question.tags.all %} {{tag}} {% endfor %}</p>
+
+{% if user == question.creator%}
+<div>actions: <a href="/question/edit/{{question.id}}?success=/question/get/{{question.slug}}">edit</a> <a href="/question/delete/{{question.id}}">delete</a></div>
+{% endif %}
+
+<hr>
+
+{% for ans in answers %}
+<p># {{ans}} - {{ans.creator.username}} <a href="/question/answer/{{ans.id}}/delete?success=/question/get/{{question.slug}}">delete</a><br></p>
+{% endfor %}
+
+
+<br><hr>
+<form action="/question/answer/{{question.id}}?success=/question/get/{{question.slug}}" method="post">
+    {% csrf_token %}
+    <p>create answer</p>
+    <textarea name="answer" id=""></textarea><br>
+    <input type="submit" value="submit">
+</form>
+
+
+{% endblock %}

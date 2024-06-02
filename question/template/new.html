@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>PYQS - New Question </title>
+<meta name="description" content="">
+{% endblock %}
+
+
+{% block content %}
+<form action="{% if question %} /question/edit/{{question.id}}?success={{success}} {% else %} /question/new {% endif %}" method="post">
+    {% csrf_token %}
+        <input type="text" name="title" placeholder="title" value="{{question.title}}"/><br />
+        <textarea name="content" placeholder="content">{{question.content}}</textarea><br />
+        <input type="text" name="tags" placeholder="tags" value="{{question.tags.all}}"/><br />
+
+        {% if question %}
+        <input type="submit" value="update" />
+        <a href="">delete</a>
+        {% else %}
+        <input type="submit" value="submit" />
+        {% endif %}
+</form>
+{% endblock %}

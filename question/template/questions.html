@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>PYQS - Question </title>
+<meta name="description" content="">
+{% endblock %}
+
+
+{% block content %}
+<h2>Questions</h2>
+<hr>
+{% for question in questions %}
+<p><a href="/question/get/{{question.slug}}">{{question.title}}</a></p>
+{% endfor %}
+{% endblock %}

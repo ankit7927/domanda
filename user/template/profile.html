@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>PYQS - Profile</title>
+<meta name="description" content="">
+{% endblock %}
+
+
+{% block content %}
+<h1>{{profile.name}} - {{account.username}}</h1>
+<hr>
+{% for quest in questions %}
+<p><a href="/question/get/{{quest.slug}}">{{quest.title}}</a></p>
+{% endfor %}
+{% endblock %}
